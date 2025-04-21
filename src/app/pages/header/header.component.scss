@@ -1,0 +1,25 @@
+.custom-toolbar {
+  // background: linear-gradient(to right, #2196f3, #21cbf3); // Modern blue gradient
+  color: white;
+  padding: 0 16px;
+  background: linear-gradient(to right, #ea0089, #894fe6, #00c9ff, #ffffff);
+
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.auth-btn {
+  margin-left: 12px;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 6px 16px;
+  text-transform: none;
+}
