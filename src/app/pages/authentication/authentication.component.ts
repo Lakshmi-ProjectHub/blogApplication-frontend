@@ -3,6 +3,8 @@ import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-authentication',
@@ -23,7 +25,7 @@ export class AuthenticationComponent {
   name: string = '';
   email: string = '';
   password: string = '';
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
 
   toggleForm(form: string) {
@@ -65,6 +67,7 @@ export class AuthenticationComponent {
         if (response.status === 200) {
           // Successful login
           alert('Login successful!');
+          this.router.navigateByUrl("/view-all"); // Redirect to view-all page
         } else {
           // Invalid credentials
           alert('Invalid credentials.');

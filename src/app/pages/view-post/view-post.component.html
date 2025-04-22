@@ -1,0 +1,23 @@
+<div *ngIf="postData" class="card-container">
+    <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{ postData.name }}</mat-card-title>
+            <mat-card-subtitle>Posted by : {{ postData.user.name }} | Posted On : {{ postData.date | date:'medium'}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="postData.img" alt="Card Image" class="img" style="height: auto; width: 100%; max-height: 350px; object-fit: contain;">
+        <mat-card-content>
+            {{ postData.content }}
+        </mat-card-content>
+        <br>
+        <!--<mat-chip *ngFor="let tag of postData.tags">{{ tag }}
+
+        </mat-chip> -->
+        <mat-card-actions>
+            <button mat-raised-button color="primary">{{postData.likeCount}}
+                <mat-icon>favourite</mat-icon></button>
+            <button mat-raised-button color="primary" style="margin-left: 5px;">{{postData.likeCount}}
+                <mat-icon>remove_red_eye</mat-icon></button>
+            
+        </mat-card-actions>
+    </mat-card>
