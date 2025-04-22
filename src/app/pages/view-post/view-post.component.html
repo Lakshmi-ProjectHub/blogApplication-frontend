@@ -14,9 +14,9 @@
 
         </mat-chip> -->
         <mat-card-actions>
-            <button mat-raised-button color="primary">{{postData.likeCount}}
-                <mat-icon>favourite</mat-icon></button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">{{postData.likeCount}}
+            <button mat-raised-button color="primary" (click)="likePost()">{{postData.likeCount}}
+                <mat-icon>favorite</mat-icon></button>
+            <button mat-raised-button color="primary" style="margin-left: 5px;">{{postData.viewCount}}
                 <mat-icon>remove_red_eye</mat-icon></button>
             
         </mat-card-actions>

@@ -45,8 +45,18 @@ export class ViewPostComponent{
     }, (error:any) =>{
       this.matSnackBar.open('Error while fetching post details', 'OK');
     })
+  }
 
-  // Add any additional methods or properties as needed
+    likePost(){
+      this.PostService.likePost(this.postId).subscribe(response => {
+        this.matSnackBar.open('Post liked successfully', 'OK', { duration: 2000 });
+        this.getPostById();
+      }, (error) =>{
+        this.matSnackBar.open('Error while liking the post', 'OK');
+      })
+    }
 
 
-}}
+}
+
+
