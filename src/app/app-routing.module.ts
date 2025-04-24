@@ -5,12 +5,14 @@ import { ViewAllComponent } from './pages/view-all/view-all.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { ViewPostComponent } from './pages/view-post/view-post.component';
+import { SearchByNameComponent } from './pages/search-by-name/search-by-name.component';
 
 const routes: Routes = [
 {path:'create-post', component: CreatePostComponent},
 {path:'view-all', component: ViewAllComponent},
 {path:'view-post/:id', component: ViewPostComponent},
 {path:'auth',component: AuthenticationComponent},
+{path:'search-by-name',component: SearchByNameComponent},
 {path:'',component: ViewAllComponent},
 ];
 

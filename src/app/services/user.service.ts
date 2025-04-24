@@ -12,11 +12,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   registerUser(userData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/signup`, userData);
+    return this.http.post(`${this.baseUrl}/signup`, userData, { withCredentials: true });
   }
 
   loginUser(user: any) {
-    return this.http.post<any>('http://localhost:8080/api/user/signin', user, { observe: 'response' });
+    return this.http.post<any>('http://localhost:8080/api/user/signin', user, { observe: 'response'  , withCredentials: true});
   }
 
 }

@@ -6,6 +6,9 @@
   <span class="example-spacer"></span>
   <button mat-raised-button color="primary" routerLink="/create-post">Create New Post</button>
   <button mat-raised-button color="primary" routerLink="/view-all">View All Post</button>
+  <button mat-icon-button class="example-icon search-icon" aria-label="Example icon-button with search icon"
+  color="primary" routerLink="/search-by-name">
+    <mat-icon>search</mat-icon></button>
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>
   </button>
@@ -14,5 +17,8 @@
   </button>
   <button mat-raised-button color="accent" class="auth-btn" routerLink="/auth">Register / Login</button>
 </mat-toolbar>
+<div *ngIf="sessionUser">
+  <p>Welcome, {{ sessionUser.name }} ({{ sessionUser.email }})</p>
+</div>
 <router-outlet> </router-outlet>
 
