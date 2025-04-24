@@ -1,7 +1,6 @@
-<div class="main-wrapper">
+<!-- <div class="main-wrapper">
 <div class="container" [ngClass]="{'active': activeForm === 'signup'}">
 
-  <!-- Sign Up Form -->
   <div class="form-container sign-up" *ngIf="activeForm === 'signup'">
     <form>
       <h1>Create Account</h1>
@@ -12,7 +11,6 @@
     </form>
   </div>
 
-  <!-- Sign In Form -->
   <div class="form-container sign-in" *ngIf="activeForm === 'signin'">
     <form>
       <h1>Welcome</h1>
@@ -22,7 +20,6 @@
     </form>
   </div>
 
-  <!-- Toggle Panel -->
   <div class="toggle-container">
     <div class="toggle">
       <div class="toggle-panel toggle-left">
@@ -40,4 +37,55 @@
 
 </div>
 
+</div> -->
+<div class="main-wrapper">
+  <div class="container" [ngClass]="{'active': activeForm === 'signup'}">
+
+    <!-- Sign Up Form -->
+    <div class="form-container sign-up" *ngIf="activeForm === 'signup'">
+      <form (ngSubmit)="onSignUp()">
+        <h1>Create Account</h1>
+        <input type="text" placeholder="Name" [(ngModel)]="name" name="name" required>
+        <input type="email" placeholder="Xyz@gmail.com" [(ngModel)]="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        <div *ngIf="isEmailValid()" class="error-message">Invalid email format</div>
+
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required minlength="8">
+        <div *ngIf="password && password.length < 8" class="error-message">Password must be at least 8 characters</div>
+
+        <button type="submit" >Sign Up</button>
+      </form>
+    </div>
+
+    <!-- Sign In Form -->
+    <div class="form-container sign-in" *ngIf="activeForm === 'signin'">
+      <form (ngSubmit)="onSignIn()">
+        <h1>Welcome</h1>
+        <input type="email" placeholder="xyz@gmail.com" [(ngModel)]="email" name="loginEmail" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        <div *ngIf="isEmailValid()" class="error-message">Invalid email format</div>
+
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="loginPassword" required minlength="8">
+        <div *ngIf="password && password.length < 8" class="error-message">Password must be at least 8 characters</div>
+
+        <button type="submit" >Sign In</button>
+      </form>
+    </div>
+
+    <!-- Toggle Panel -->
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <h3>If you already have an account.</h3>
+          <p>Then just sign-in</p>
+          <button class="hidden" (click)="toggleForm('signin')">Sign In</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <h2>Don't have an account?</h2>
+          <p>Please Signup!</p>
+          <button class="hidden" (click)="toggleForm('signup')">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
+

@@ -9,6 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommentService } from '../../service/comment.service';
+import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-view-post',
@@ -22,26 +26,46 @@ import { MatChipsModule } from '@angular/material/chips';
     MatButtonModule,
     CommonModule,
     RouterModule,
-    MatChipsModule
+    MatChipsModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule
   ]
 })
 export class ViewPostComponent{
- 
+
   postData: any;
   postId: number = 0;
-  
-  constructor(private PostService: PostService,private activatedRoute: ActivatedRoute,private matSnackBar: MatSnackBar) { this.postId= this.activatedRoute.snapshot.params['id']; }
-  
+
+  // lakshmi
+  commentForm!:FormGroup;
+  comments:any;
+
+  constructor(private PostService: PostService,
+    private activatedRoute: ActivatedRoute,
+    private matSnackBar: MatSnackBar,
+  // lakshmi
+  private fb:FormBuilder,
+  private commentService:CommentService
+   ) { this.postId= this.activatedRoute.snapshot.params['id']; }
+
 
   ngOnInit(){
     console.log(this.postId);
     this.getPostById();
-    // Initialization logic here
-  }
+  //lakshmi
+  this.commentForm =this.fb.group({
+    postedBy:[null,Validators.required],
+    content:[null,Validators.required]
+  })
+
+   }
   getPostById(){
     this.PostService.getPostById(this.postId).subscribe(res => {
       this.postData = res;
       console.log(res);
+      this.getCommentsByPost(); //get comments for post
+
     }, (error:any) =>{
       this.matSnackBar.open('Error while fetching post details', 'OK');
     })
@@ -56,6 +80,29 @@ export class ViewPostComponent{
       })
     }
 
+
+    // lakshmi
+    publishComment(){
+      const postedBy = this.commentForm.get('postedBy')?.value;
+      const content = this.commentForm.get('content')?.value;
+
+      this.commentService.createComment(this.postId,postedBy,content).subscribe(res=>{
+        this.matSnackBar.open(" Comment Published Sucessfully!!!" ,"ok");
+        this.getCommentsByPost(); //for one particualr post
+        this.commentForm.reset(); // Resets the form
+
+
+      },error=>{
+        this.matSnackBar.open("Something went wrong!!!" ,"ok")
+      })
+    }
+    getCommentsByPost(){
+      this.commentService.getAllCommentsByPost(this.postId).subscribe(res=>{
+        this.comments=res;
+      },error=>{
+        this.matSnackBar.open("Something went wrong!!!" ,"ok")
+      })
+    }
 
 }
 

@@ -21,8 +21,7 @@ display: flex;
   align-items: center;
   justify-content: center;
   height: 90vh;
-
-  background: linear-gradient(to right, #ea0089, #894fe6, #00c9ff, #ffffff);
+  background: linear-gradient(to right, #f5a5d1, #b88ef5, #a5e0f6, #ffffff); /* Lighter Gradient Background */
 
 }
 
@@ -34,7 +33,7 @@ display: flex;
   border-radius: 30px;
   box-shadow: 0 5px 15px white;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   width: 768px;
   max-width: 100%;
   min-height: 500px;
@@ -56,6 +55,14 @@ display: flex;
   margin-top: 10px;
 }
 
+/* Error message styling */
+.error-message {
+  color: red;
+  font-size: 12px;
+  text-align: left;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
 /* overlay button which is transparent */
 .container button.hidden{
   background-color: transparent;
