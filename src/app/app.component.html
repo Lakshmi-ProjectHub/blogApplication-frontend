@@ -1,24 +1,32 @@
 <mat-toolbar>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
+    <mat-icon>public</mat-icon>
   </button>
-  <span>My App</span>
+  <span>BlogSphere</span>
   <span class="example-spacer"></span>
-  <button mat-raised-button color="primary" routerLink="/create-post">Create New Post</button>
-  <button mat-raised-button color="primary" routerLink="/view-all">View All Post</button>
-  <button mat-icon-button class="example-icon search-icon" aria-label="Example icon-button with search icon"
-  color="primary" routerLink="/search-by-name">
-    <mat-icon>search</mat-icon></button>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
+  <button *ngIf="sessionUser" mat-raised-button color="primary" routerLink="/create-post">Create New Post<mat-icon>add_circle</mat-icon></button>
+  <button mat-raised-button color="primary" routerLink="/view-all">View All Posts<mat-icon>article</mat-icon></button>
+  <!-- <button mat-raised-button color="primary" [routerLink]="['/view-user-post', sessionUser._id]">
+    View User Post
+  </button> -->
+  <button 
+  *ngIf="sessionUser?.id"
+  mat-raised-button 
+  color="primary" 
+  [routerLink]="['/view-user-post', sessionUser.id]">My Posts<mat-icon>person</mat-icon></button>
+  <button mat-raised-button color="primary" routerLink="/search-by-name" class="search-button">Search
+    <mat-icon>search</mat-icon>
   </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
-  <button mat-raised-button color="accent" class="auth-btn" routerLink="/auth">Register / Login</button>
+
+  <div *ngIf="sessionUser">
+    <button mat-raised-button color="accent" class="auth-btn" (click)="userService.logout()">Logout<mat-icon>logout</mat-icon></button>
+  </div> 
+  
+
+  <button *ngIf="!sessionUser" mat-raised-button color="accent" class="auth-btn" routerLink="/auth">Register / Login<mat-icon>login</mat-icon></button>
 </mat-toolbar>
 <div *ngIf="sessionUser">
-  <p>Welcome, {{ sessionUser.name }} ({{ sessionUser.email }})</p>
+  <p>Welcome, {{ sessionUser.name }} , {{sessionUser.id}} ({{ sessionUser.email }})</p>
 </div>
 <router-outlet> </router-outlet>
 

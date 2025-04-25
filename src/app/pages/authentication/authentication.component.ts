@@ -138,8 +138,11 @@ export class AuthenticationComponent {
         console.log('Login response:', response); // Log response for debugging
         if (response.body && response.body.status === 200) {
           this.showMessage('Login successful!');
-          this.router.navigateByUrl("/view-all"); // Redirect to view-all page
-          this.resetForm(); // Reset form fields after successful login
+          //this.router.navigateByUrl("/view-all"); // Redirect to view-all page
+          this.resetForm();
+          this.router.navigate(['/view-all']).then(() => {
+            location.reload(); // This now reloads /auth instead of the old route
+          });// Reset form fields after successful login
 
         } else {
           alert('Invalid credentials.');

@@ -24,11 +24,14 @@ import { ViewAllComponent } from './pages/view-all/view-all.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { ViewPostComponent } from './pages/view-post/view-post.component';
+import { ViewUserPostComponent } from './pages/view-user-post/view-user-post.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    
   
 
     
@@ -51,7 +54,8 @@ import { ViewPostComponent } from './pages/view-post/view-post.component';
     CreatePostComponent,
     AuthenticationComponent,
     ViewAllComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    ViewUserPostComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

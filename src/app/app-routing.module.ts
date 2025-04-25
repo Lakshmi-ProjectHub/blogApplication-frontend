@@ -6,6 +6,8 @@ import { HeaderComponent } from './pages/header/header.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { ViewPostComponent } from './pages/view-post/view-post.component';
 import { SearchByNameComponent } from './pages/search-by-name/search-by-name.component';
+import { ViewUserPostComponent } from './pages/view-user-post/view-user-post.component';
+
 
 const routes: Routes = [
 {path:'create-post', component: CreatePostComponent},
@@ -13,6 +15,7 @@ const routes: Routes = [
 {path:'view-post/:id', component: ViewPostComponent},
 {path:'auth',component: AuthenticationComponent},
 {path:'search-by-name',component: SearchByNameComponent},
+{path: 'view-user-post/:userId', component: ViewUserPostComponent},
 {path:'',component: ViewAllComponent},
 ];
 

@@ -1,24 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
+
 const BASIC_URL ="http://localhost:8080/";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
+  sessionUser: any;
 
   constructor( private http:HttpClient) {}
 
-  createComment(postId:number, postedBy:string, content:string): Observable<any>{
-    const params={
-      postId:postId,
-      postedBy:postedBy,
-
-    }
-    return this.http.post<any>(BASIC_URL + `api/comments/create`,content,{params});
-
+  createComment(postId: number, content: string,userId: number): Observable<any> {
+    // Initialize userId to null in case sessionUser is not available
+   
+    const params = {
+      postId: postId.toString(),
+      postedBy: userId.toString()  
+    };
+  
+    // Send the data to the backend using HTTP POST
+    return this.http.post<any>(BASIC_URL + `api/comments/create`, content, { params });
   }
+  
   getAllCommentsByPost(postId:number):Observable<any>{
     return this.http.get(BASIC_URL + `api/comments/${postId}`);
 

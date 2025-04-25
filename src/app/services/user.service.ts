@@ -1,15 +1,49 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private loggedInSubject = new BehaviorSubject<boolean>(true);
+  loggedIn$ = this.loggedInSubject.asObservable();
+  private user: any = null;
 
   private baseUrl = 'http://localhost:8080/api/user';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
+
+//   checkSession() {
+//     this.http.get('http://localhost:8080/api/user/session').subscribe({
+//     next: (userData) => {
+//       this.user = userData;
+//       this.loggedInSubject.next(true);  // Set logged-in state to true
+//     },
+//     error: () => {
+//       this.loggedInSubject.next(false);  // Set logged-in state to false if session doesn't exist
+//     }
+//   });
+// }
+
+logout() {
+  this.http.post('http://localhost:8080/api/user/logout', {}, { withCredentials: true }).subscribe({
+    next: () => {
+      this.user = null;
+      this.loggedInSubject.next(false);
+      console.log("Logged out and session cleared");
+      
+      this.router.navigate(['/auth']).then(() => {
+        location.reload(); // This now reloads /auth instead of the old route
+      });
+    },
+    error: (err) => {
+      console.error('Logout failed', err);
+    }
+  });
+}
+
 
   registerUser(userData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/signup`, userData, { withCredentials: true });
@@ -18,5 +52,10 @@ export class UserService {
   loginUser(user: any) {
     return this.http.post<any>('http://localhost:8080/api/user/signin', user, { observe: 'response'  , withCredentials: true});
   }
+  getUser() {
+    return this.user;
+  }
+  
+
 
 }

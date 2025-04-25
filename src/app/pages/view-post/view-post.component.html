@@ -19,8 +19,47 @@
             <button mat-raised-button color="primary" style="margin-left: 5px;">{{postData.viewCount}}
                 <mat-icon>remove_red_eye</mat-icon></button>
 
-        </mat-card-actions>
+          <button *ngIf="postData?.user?.id === sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px;" (click)="editPost()">
+              <mat-icon>edit</mat-icon></button>
+          <button *ngIf="postData?.user?.id === sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px;" (click)="deletePost()">
+              <mat-icon>delete</mat-icon></button>
+
+      </mat-card-actions>
     </mat-card>
+
+    <mat-card-content>
+      <!-- Display content or form for editing -->
+      <!-- <div *ngIf="!isEditingPost">
+        <p>{{ postData.content }}</p>
+        <button mat-raised-button color="accent" (click)="isEditingPost = true">Edit Post</button>
+        <button mat-raised-button color="warn" (click)="deletePost()">Delete Post</button>
+      </div> -->
+
+      <div *ngIf="isEditingPost">
+        <form [formGroup]="postForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill">
+            <mat-label>Img</mat-label>
+            <input matInput formControlName="img" />
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill">
+            <mat-label>Content</mat-label>
+            <textarea matInput rows="5" formControlName="content"></textarea>
+          </mat-form-field>
+      
+          <button mat-raised-button color="primary" style="float: right; margin-left: 8px;"
+           (click)="updatePost()">Update Post</button>
+      
+          <button mat-raised-button color="warn" style="float: right;" (click)="isEditingPost = false;">Cancel</button>
+        </form>
+      </div>
+      
+    </mat-card-content>
 
     <!-- <mat-card class="comment-card">
       <mat-card-content>
@@ -48,7 +87,7 @@
     </mat-card> -->
 
     <!-- <div class="comment-wrapper"> -->
-      <mat-card class="comment-card fancy-comment">
+      <mat-card *ngIf="sessionUser" class="comment-card fancy-comment">
         <mat-card-content>
           <h3 class="section-title">💬 Publish Your Comment</h3>
           <form [formGroup]="commentForm" class="comment-form">
@@ -57,12 +96,13 @@
               <textarea id="content" formControlName="content" placeholder="Write something cool..."></textarea>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="postedBy">Posted By</label>
               <input type="text" id="postedBy" formControlName="postedBy" placeholder="Xyz">
-            </div>
+            </div> -->
+            <!-- [disabled]="!commentForm.valid" -->
 
-            <button mat-raised-button (click)="publishComment()" color="primary" class="publish-btn" [disabled]="!commentForm.valid">
+            <button mat-raised-button (click)="publishComment()" color="primary" class="publish-btn" >
               🚀 Publish Comment
             </button>
           </form>
@@ -73,8 +113,8 @@
         <h4>Comments</h4>
         <mat-card class="comment-card" *ngFor="let comment of comments">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{ comment.postedBy }}</mat-card-title>
+            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+            <mat-card-title>{{ comment.user.name }}</mat-card-title>
             <mat-card-subtitle>{{ comment.createdAt | date:'medium' }}</mat-card-subtitle>
           </mat-card-header>
 

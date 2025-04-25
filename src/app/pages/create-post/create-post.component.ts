@@ -9,31 +9,42 @@ import { CommonModule } from '@angular/common';
 import { PostService } from '../../service/post.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss'],
   standalone: true,
+
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatSnackBarModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    RouterModule
   ]
 })
 export class CreatePostComponent implements OnInit {
   postForm!: FormGroup;
   tags: string[] = [];
-
+  userId: number = 0;
+  sessionUser: any;
+  
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
     private postService: PostService, 
-  ) {}
+    private http: HttpClient,
+    private activatedRoute: ActivatedRoute) { this.userId = Number(this.activatedRoute.snapshot.paramMap.get('userId'));}
+  
 
   ngOnInit() {
     this.postForm = this.fb.group({
@@ -42,6 +53,21 @@ export class CreatePostComponent implements OnInit {
       img: [null, Validators.required],
       user: [null, Validators.required]
     });
+    this.http.get('http://localhost:8080/api/user/session', { withCredentials: true })
+        .subscribe({
+          next: (data: any) => {
+            this.sessionUser = data;
+            if (this.sessionUser && this.sessionUser.id) {
+              this.postForm.patchValue({
+                user: this.sessionUser.id
+              });
+            }
+          },
+          error: (err: any)=> {
+            console.error('Not logged in or session expired', err);
+          }
+        })
+
   }
 
   add(event: any) {
@@ -59,20 +85,49 @@ export class CreatePostComponent implements OnInit {
       this.tags.splice(index, 1);
     }
   }
-  createPost() {
-  const data = this.postForm.value;
-  data.user = { id: data.user};
-  data.tags = this.tags;
+  // createPost() {
+  // const data = this.postForm.value;
+  // data.user = { id: data.user};
+  // data.tags = this.tags;
+ 
 
-  this.postService.createNewPost(data).subscribe({
-    next: res => {
-      this.snackBar.open("Post Created Successfully!", "Close");
-      this.router.navigateByUrl("/");
-    },
-    error: err => {
-      console.error("Error",err);
-      this.snackBar.open("Something Went Wrong!", "Ok");
-    }
-  });
-}
+  // this.postService.createNewPost(data).subscribe({
+  //   next: res => {
+  //     this.snackBar.open("Post Created Successfully!", "Close");
+  //     this.router.navigateByUrl("/");
+  //   },
+  //   error: err => {
+  //     console.error("Error",err);
+  //     this.snackBar.open("Something Went Wrong!", "Ok");
+  //   }
+  // });
+  createPost() {
+    const data = this.postForm.value;
+   
+    data.user = { id: data.user }; 
+  
+    // If you have tags to add, ensure they're set properly
+    data.tags = this.tags;
+  
+    
+    this.postService.createNewPost(data).subscribe({
+      next: res => {
+       
+        this.snackBar.open("Post Created Successfully!", "Close", {
+          duration: 2000
+        });
+        
+        this.router.navigateByUrl("/");
+        //location.reload();
+      },
+      error: err => {
+        
+        console.error("Error creating post", err);
+        this.snackBar.open("Something Went Wrong!", "Ok", {
+          duration: 2000
+        });
+      }
+    });
+  }
+  
 }
