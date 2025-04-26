@@ -2,7 +2,7 @@
   <mat-form-field appearance="outline" class="search-input">
     <mat-label>Enter Keyword to Search</mat-label>
 
-    <input matInput [(ngModel)]="name" />
+    <input matInput [(ngModel)]="name"  (keydown.enter)="searchByName()" />
 
     <button mat-button matSuffix color="primary" (click)="searchByName()">
       <mat-icon>search</mat-icon>
@@ -19,7 +19,7 @@
 
     <mat-grid-list cols="5">
       <mat-grid-tile [colspan]="2" [rowspan]="1">
-        <img mat-card-image [src]="item.img" class="post-img" alt="Card Image" />
+        <img mat-card-image [src]="'http://localhost:8080/uploads/' + item.img" class="post-img" alt="Card Image" />
       </mat-grid-tile>
       <mat-grid-tile [colspan]="3" [rowspan]="1">
         <mat-card-content>

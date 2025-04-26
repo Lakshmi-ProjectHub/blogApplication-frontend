@@ -34,7 +34,7 @@ export class ViewAllComponent {
 
   allPosts: any;
 
-  constructor(private postService: PostService,private snackBar: MatSnackBar) { }
+  constructor(private postService: PostService,private MatsnackBar: MatSnackBar) { }
 
 ngOnInit() {
     this.getAllPost();
@@ -46,8 +46,14 @@ ngOnInit() {
       this.allPosts = res;
       
     }, error => {
-      this.snackBar.open("Something Went Wrong!!!!", "Ok")
+      this.MatsnackBar.open("Something Went Wrong!!!!", "Ok")
       })
     
   }
+    showMessage() {
+      this.MatsnackBar.open("To like visit post", "Close", {
+        duration: 3000, // 3 seconds
+      });
+    }
+    
 }

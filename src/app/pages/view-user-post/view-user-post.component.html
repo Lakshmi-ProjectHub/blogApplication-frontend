@@ -8,7 +8,7 @@
 
         <mat-grid-list cols="5">
             <mat-grid-tile [colspan]="2" [rowspan]="1">
-                <img mat-card-image [src]="item.img" alt="Card Image" class="post-image">
+                <img mat-card-image [src]="'http://localhost:8080/uploads/' + item.img" alt="Card Image" class="post-image">
             </mat-grid-tile>
             <mat-grid-tile [colspan]="3" [rowspan]="1">
                 <mat-card-content>

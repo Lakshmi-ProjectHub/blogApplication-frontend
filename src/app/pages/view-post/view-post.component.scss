@@ -13,6 +13,7 @@
 /* Card styling */
 .comment-card {
   width: 80%; /* Adjust width for a longer card */
+
   max-width: 900px; /* Max width */
   background: rgba(255, 255, 255, 0.9); /* Slight opacity for contrast */
   padding: 30px;
@@ -25,7 +26,22 @@
   margin-top:2%;
   margin-left:15%;
       background: linear-gradient(to right, #f5a5d1, #b88ef5, #a5e0f6, #ffffff); /* Lighter Gradient Background */
+}
 
+.example-header-image {
+  background-image: url('https://cdn-icons-png.flaticon.com/512/847/847969.png');
+  background-size: cover;
+}
+.username{
+  font-size: 1rem;
+}
+
+.date{
+  font-size: 0.8rem;
+}
+
+.comm{
+  font-size: 1.5rem;
 }
 
 /* Title style */
@@ -35,7 +51,7 @@
   font-weight: 1000;
   color: #333;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   margin-top: -10px;   /* added this to move it up */
 
   animation: slideInDown 0.6s ease;
@@ -113,6 +129,18 @@ h4{
   }
 }
 
+.center-card {
+  max-width: 600px; /* Adjust the maximum width as needed */
+  margin: auto;
+  margin-top: 10px; /* Adjust the top margin as needed */
+  padding: 30px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+
 /* Animations */
 @keyframes fadeIn {
   from {
@@ -135,4 +163,5 @@ h4{
     transform: translateY(0);
   }
 }
+
 

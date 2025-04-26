@@ -46,7 +46,7 @@ export class SearchByNameComponent {
       this.result = res;
       console.log(this.result);
     }, error => {
-      this.snackBar.open("Something Went Wrong!!!!", "Ok");
+      this.snackBar.open("Enter something to search!!!!", "Ok");
     });
   }
 

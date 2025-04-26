@@ -43,12 +43,14 @@ export class ViewPostComponent{
   postId: number = 0;
   isEditingPost = false;
   postForm!: FormGroup;
+  selectedPost: any; // To store the post being edited
 
   // lakshmi
   commentForm!:FormGroup;
   comments:any;
 
-  sessionUser: any; // To store session user data
+  sessionUser: any;
+  selectedImageFile: any;
   
 
   constructor(private PostService: PostService,
@@ -61,11 +63,18 @@ export class ViewPostComponent{
   private http: HttpClient,
   
    ) { this.postId= this.activatedRoute.snapshot.params['id']; }
+
+   onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedImageFile = event.target.files[0];
+    }
+  }
    
 
 
   ngOnInit(){
     console.log(this.postId);
+    this.viewPostById();
     this.getPostById();
 
     this.postForm = new FormGroup({
@@ -97,14 +106,33 @@ export class ViewPostComponent{
       this.postData = res;
       console.log(res);
       this.getCommentsByPost(); //get comments for post
-
     }, (error:any) =>{
       this.matSnackBar.open('Error while fetching post details', 'OK');
     })
   }
-
+  viewPostById(): void{
+    const alreadyViewed = localStorage.getItem('viewed-'+ this.postId);
+    if (!alreadyViewed) {
+      localStorage.setItem('viewed-'+ this.postId, 'true'); 
+      this.PostService.viewPostById(this.postId).subscribe(res => {
+      this.postData = res;
+      console.log(res);
+    }, (error:any) =>{
+      this.matSnackBar.open('Error while fetching post details', 'OK');
+    })
+    location.reload(); // Reload the page to reflect changes
+  }
+  }
     likePost(){
+       const AlreadyLiked = localStorage.getItem('liked-'+this.postId);
+       if(AlreadyLiked){
+         this.matSnackBar.open('You already liked this post', 'OK');
+         return;
+       }
+
+
       this.PostService.likePost(this.postId).subscribe(response => {
+        localStorage.setItem('liked-'+this.postId, 'true');
         this.matSnackBar.open('Post liked successfully', 'OK', { duration: 2000 });
         this.getPostById();
       }, (error) =>{
@@ -116,14 +144,34 @@ export class ViewPostComponent{
     editPost() {
       // Enable editing mode
       this.isEditingPost = true;
+      this.selectedPost = this.postData;
+
+  this.postForm.patchValue({
+    name: this.postData.name,
+    //img: this.postData.img,
+    content: this.postData.content
+  });
     }
 
    
       updatePost() {
-        const updatedPostData = this.postForm.value; // Get the updated post data from the form
+      
+        const formValues = this.postForm.value;
+  
+        const formData = new FormData();
+        formData.append("name", formValues.name);
+        formData.append("content", formValues.content);
+        formData.append("userId", formValues.user); // user ID from form
+        formData.append("img", this.selectedImageFile); // the selected file
+      
+        // If you have tags or other JSON-like fields, you can stringify them:
+        // formData.append("tags", JSON.stringify(this.tags));
+      
+        
+      // Get the updated post data from the form
         
         // Send the updated post to the backend
-        this.http.put(`http://localhost:8080/api/posts/${this.postData.id}`, updatedPostData).subscribe({
+        this.http.put(`http://localhost:8080/api/posts/${this.postData.id}`, formData).subscribe({
           next: (updatedPost) => {
             console.log('Post updated successfully', updatedPost);
             this.postData = updatedPost; // Update the postData with the updated post
@@ -138,23 +186,47 @@ export class ViewPostComponent{
           }
         });
       }
+
+      
       
   
+      // deletePost() {
+      //   console.log('Post ID:', this.postData.id);
+      //   if (this.postData && this.postData.id) {
+      //     this.http.delete(`http://localhost:8080/api/posts/${this.postData.id}`).subscribe({
+      //       next: () => {
+      //         console.log('Post deleted successfully');
+      //         this.router.navigateByUrl("/");
+      //       },
+      //       error: (err) => {
+      //         console.error('Error deleting post:', err);
+      //       }
+      //     });
+      //   } else {
+      //     console.error('Invalid post ID');
+      //     alert('Invalid post ID');
+      //   }
+      // }
+
       deletePost() {
-        console.log('Post ID:', this.postData.id);
-        if (this.postData && this.postData.id) {
-          this.http.delete(`http://localhost:8080/api/posts/${this.postData.id}`).subscribe({
-            next: () => {
-              console.log('Post deleted successfully');
-              this.router.navigateByUrl("/");
-            },
-            error: (err) => {
-              console.error('Error deleting post:', err);
-            }
-          });
+        if (confirm('Are you sure you want to delete this post?')) {
+          console.log('Post ID:', this.postData.id);
+          if (this.postData && this.postData.id) {
+            this.http.delete(`http://localhost:8080/api/posts/${this.postData.id}`).subscribe({
+              next: () => {
+                console.log('Post deleted successfully');
+                this.router.navigateByUrl("/");
+              },
+              error: (err) => {
+                console.error('Error deleting post:', err);
+              }
+            });
+          } else {
+            console.error('Invalid post ID');
+            alert('Invalid post ID');
+          }
         } else {
-          console.error('Invalid post ID');
-          alert('Invalid post ID');
+          console.log('Post deletion cancelled');
         }
       }
 

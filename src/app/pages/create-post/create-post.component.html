@@ -2,15 +2,24 @@
   <mat-card-content>
     <div>
       <form [formGroup]="postForm">
+        
+          <input formControlName="img"  type="file" (change)="onFileSelected($event)" />
+        
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" />
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <!-- <mat-form-field appearance="fill">
           <mat-label>Img</mat-label>
-          <input matInput formControlName="img" />
-        </mat-form-field>
+          <input matInput formControlName="img"  type="file" (change)="onFileSelected($event)" />
+        </mat-form-field> -->
+
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Img</mat-label>
+          <input matInput formControlName="img"  type="file" (change)="onFileSelected($event)" />
+        </mat-form-field> -->
+        
 
         <mat-form-field appearance="fill">
           <mat-label>Content</mat-label>
