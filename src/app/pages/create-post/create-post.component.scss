@@ -1,10 +1,79 @@
-.center-card {
-  max-width: 600px; /* Adjust the maximum width as needed */
+// .center-card {
+//   max-width: 600px; /* Adjust the maximum width as needed */
+//   margin: auto;
+//   margin-top: 10px; /* Adjust the top margin as needed */
+//   padding: 30px;
+// }
+
+// mat-form-field {
+//   width: 100%;
+// }
+
+.create-post-heading{
+
+margin-left: 25%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: black;
+  font-size: 0.9rem;
+}
+.center-card{
+  max-width: 700px;
   margin: auto;
-  margin-top: 10px; /* Adjust the top margin as needed */
-  padding: 30px;
+  margin-top: 5px;
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(to right, #f5a5d1, #b88ef5, #a5e0f6, #ffffff);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: black;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-mat-form-field {
-  width: 100%;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* gap between form groups */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 13px; /* gap between label and input */
+}
+
+label {
+  padding-top: 3%;
+  font-weight: 600;
+  font-size: 15px;
+  color: black;
+}
+
+.custom-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: #3f51b5;
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.5);
+}
+
+.create-post-button {
+  background-color: darkblue;
+  color: white;
+  font-size: 13px;
+  height: 6vh; /* vertical height for button */
+  width: 150px;
+  border-radius: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  float: right;margin-top: 4%;
+  font-weight: 800;
+}
+
+.create-post-button:hover {
+  background-color: #00008b; /* even darker on hover */
 }

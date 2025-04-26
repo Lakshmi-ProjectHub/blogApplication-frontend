@@ -37,12 +37,12 @@ export class CreatePostComponent implements OnInit {
   userId: number = 0;
   sessionUser: any;
   selectedImageFile: any;
-  
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
-    private postService: PostService, 
+    private postService: PostService,
     private http: HttpClient,
     private activatedRoute: ActivatedRoute) { this.userId = Number(this.activatedRoute.snapshot.paramMap.get('userId'));}
 
@@ -51,8 +51,8 @@ export class CreatePostComponent implements OnInit {
         this.selectedImageFile = event.target.files[0];
       }
     }
-  
-  
+
+
 
   ngOnInit() {
     this.postForm = this.fb.group({
@@ -97,7 +97,7 @@ export class CreatePostComponent implements OnInit {
   // const data = this.postForm.value;
   // data.user = { id: data.user};
   // data.tags = this.tags;
- 
+
 
   // this.postService.createNewPost(data).subscribe({
   //   next: res => {
@@ -111,16 +111,16 @@ export class CreatePostComponent implements OnInit {
   // });
   createPost() {
     const formValues = this.postForm.value;
-  
+
     const formData = new FormData();
     formData.append("name", formValues.name);
     formData.append("content", formValues.content);
     formData.append("userId", formValues.user); // user ID from form
     formData.append("img", this.selectedImageFile); // the selected file
-  
+
     // If you have tags or other JSON-like fields, you can stringify them:
     // formData.append("tags", JSON.stringify(this.tags));
-  
+
     this.postService.createNewPost(formData).subscribe({
       next: res => {
         this.snackBar.open("Post Created Successfully!", "Close", {
@@ -136,5 +136,5 @@ export class CreatePostComponent implements OnInit {
       }
     });
   }
-  
+
 }

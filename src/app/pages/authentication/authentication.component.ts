@@ -34,7 +34,7 @@ export class AuthenticationComponent {
 
     showMessage(message: string, action: string = 'Close') {
       this.snackBar.open(message, action, {
-        duration: 3000,
+        duration: 2500,
         horizontalPosition: 'center',
         verticalPosition: 'top'
       });
@@ -95,7 +95,7 @@ export class AuthenticationComponent {
 
   onSignUp() {
     if (!this.name || !this.email || !this.password) {
-      alert("Please fill in all fields correctly.");
+      this.showMessage("Please fill in all fields correctly.");
       return;
     }
 
@@ -117,7 +117,7 @@ export class AuthenticationComponent {
       },
       (error: any) => {
         console.error('Error during registration', error);
-        alert('Registration failed due to an error');
+        this.showMessage('Registration failed due to an error');
       }
     );
   }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostService } from '../../service/post.service';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,7 +31,7 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
   ]
-  
+
 })
 export class SearchByNameComponent {
 
@@ -45,6 +45,10 @@ export class SearchByNameComponent {
     this.postService.searchByName(this.name).subscribe(res => {
       this.result = res;
       console.log(this.result);
+      if (this.result.length === 0) {
+        this.snackBar.open("No posts available for this search keyword!", "Ok", { duration: 3000 });
+      }
+      this.name=""; //reseting search filed for another entry
     }, error => {
       this.snackBar.open("Enter something to search!!!!", "Ok");
     });

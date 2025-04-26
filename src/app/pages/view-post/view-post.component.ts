@@ -51,7 +51,7 @@ export class ViewPostComponent{
 
   sessionUser: any;
   selectedImageFile: any;
-  
+
 
   constructor(private PostService: PostService,
     private activatedRoute: ActivatedRoute,
@@ -61,7 +61,7 @@ export class ViewPostComponent{
   private fb:FormBuilder,
   private commentService:CommentService,
   private http: HttpClient,
-  
+
    ) { this.postId= this.activatedRoute.snapshot.params['id']; }
 
    onFileSelected(event: any) {
@@ -69,7 +69,7 @@ export class ViewPostComponent{
       this.selectedImageFile = event.target.files[0];
     }
   }
-   
+
 
 
   ngOnInit(){
@@ -84,7 +84,7 @@ export class ViewPostComponent{
       // Add other form controls as needed
     });
 
-    
+
   //lakshmi
   this.commentForm =this.fb.group({
     postedBy:[null,Validators.required],
@@ -113,7 +113,7 @@ export class ViewPostComponent{
   viewPostById(): void{
     const alreadyViewed = localStorage.getItem('viewed-'+ this.postId);
     if (!alreadyViewed) {
-      localStorage.setItem('viewed-'+ this.postId, 'true'); 
+      localStorage.setItem('viewed-'+ this.postId, 'true');
       this.PostService.viewPostById(this.postId).subscribe(res => {
       this.postData = res;
       console.log(res);
@@ -153,29 +153,31 @@ export class ViewPostComponent{
   });
     }
 
-   
+
       updatePost() {
-      
+
         const formValues = this.postForm.value;
-  
+
         const formData = new FormData();
         formData.append("name", formValues.name);
         formData.append("content", formValues.content);
         formData.append("userId", formValues.user); // user ID from form
         formData.append("img", this.selectedImageFile); // the selected file
-      
+
         // If you have tags or other JSON-like fields, you can stringify them:
         // formData.append("tags", JSON.stringify(this.tags));
-      
-        
+
+
       // Get the updated post data from the form
-        
+
         // Send the updated post to the backend
         this.http.put(`http://localhost:8080/api/posts/${this.postData.id}`, formData).subscribe({
           next: (updatedPost) => {
             console.log('Post updated successfully', updatedPost);
             this.postData = updatedPost; // Update the postData with the updated post
             // Add any logic here to handle success, such as redirecting or refreshing the post list
+            this.matSnackBar.open('Post Updated sucessfully', 'OK');
+
           },
           error: (err) => {
             console.error('Error updating post:', err);
@@ -187,9 +189,9 @@ export class ViewPostComponent{
         });
       }
 
-      
-      
-  
+
+
+
       // deletePost() {
       //   console.log('Post ID:', this.postData.id);
       //   if (this.postData && this.postData.id) {
@@ -234,11 +236,11 @@ export class ViewPostComponent{
     publishComment(){
       //const postedBy = this.commentForm.get('postedBy')?.value;
       const content = this.commentForm.get('content')?.value;
-      
+
       this.commentService.createComment(this.postId,content,this.sessionUser.id).subscribe(res=>{
         this.matSnackBar.open(" Comment Published Sucessfully!!!" ,"ok");
         this.getCommentsByPost();
-        this.commentForm.reset(); 
+        this.commentForm.reset();
 
 
       },error=>{

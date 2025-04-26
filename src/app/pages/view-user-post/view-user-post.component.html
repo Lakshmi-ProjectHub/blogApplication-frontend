@@ -8,7 +8,7 @@
 
         <mat-grid-list cols="5">
             <mat-grid-tile [colspan]="2" [rowspan]="1">
-                <img mat-card-image [src]="'http://localhost:8080/uploads/' + item.img" alt="Card Image" class="post-image">
+                <img mat-card-image [src]="'http://localhost:8080/uploads/' + item.img" alt="Card Image" class="poster-img">
             </mat-grid-tile>
             <mat-grid-tile [colspan]="3" [rowspan]="1">
                 <mat-card-content>
@@ -22,7 +22,7 @@
                 <button mat-raised-button color="primary">{{item.likeCount}}<mat-icon>favorite</mat-icon></button>
                 <button mat-raised-button color="primary" style="margin-left: 5px;">{{item.viewCount}}
                     <mat-icon>remove_red_eye</mat-icon></button>
-                <button mat-raised-button color="primary" routerLink="/view-post/{{item.id}}">View Post</button>  
+                <button mat-raised-button color="primary" routerLink="/view-post/{{item.id}}">View Post</button>
             </mat-card-actions>
     </mat-card>
 </div>

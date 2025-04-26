@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 body{
 /* background-image: url('images/background.jpg'); */
@@ -43,15 +43,15 @@ display: flex;
 
 /* buttons in that container */
 .container button{
-  background-color: #512da8;
+  background-color: darkblue;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   padding: 10px 45px;
   border: 1px solid transparent;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   margin-top: 10px;
 }
 
@@ -65,9 +65,15 @@ display: flex;
 }
 /* overlay button which is transparent */
 .container button.hidden{
-  background-color: transparent;
-  border-color:white;
-  color:rgb(180, 17, 17);
+  // background-color: transparent;
+  // border-color:white;
+  // color:rgb(180, 17, 17);
+  background-color: darkblue;
+  color: #fff;
+  border: 1px solid transparent;
+
+  font-weight: 800;
+
 }
 
 /* signin/sign up forms */
@@ -82,20 +88,26 @@ display: flex;
 }
 /* heading for that conatiners */
 .container h1,h2{
-font-family:cursive;
-text-shadow:2px 2px 8px orangered;
+// font-family:cursive;
+// text-shadow:2px 2px 8px orangered;
 color:black
+}
+.toggle-panel .toggle-left,h3,h2,p{
+  font-family: --font-primary;
 }
 /* inputs in that contianer(signin /signup) */
 .container input{
   background-color:peachpuff;
-  border: 2px solid green;
+  border: 2px solid black;
   margin: 8px 0;
   padding: 10px 15px;
   font-size: 14px;
   border-radius: 15px;
   width: 100%;
   outline: none;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 300;
+  color:black;
 }
 
 /* form container */
@@ -171,6 +183,8 @@ color:black
   /* background-color: #a8a7aa; */
   height: 100%;
   background: linear-gradient(to right,orange,gold);
+  // background: linear-gradient(to right, #f5a5d1, #b88ef5, #a5e0f6, #ffffff); /* Lighter Gradient Background */
+
   color:black;
   font-weight: bold;
   position: relative;
@@ -202,6 +216,11 @@ color:black
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
   }
+  p{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+   font-weight: 600;
+  }
+
 
 }
 

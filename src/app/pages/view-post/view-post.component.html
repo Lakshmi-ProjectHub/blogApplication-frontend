@@ -27,33 +27,39 @@
       </mat-card-actions>
     </mat-card>
 
+
     <mat-card class="center-card" *ngIf="isEditingPost">
-    <mat-card-content>
-      <div>
-        <form [formGroup]="postForm">
-          <input formControlName="img"  type="file" (change)="onFileSelected($event)" />
-          <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" />
-          </mat-form-field>
-      
-      
-          <mat-form-field appearance="fill">
-            <mat-label>Content</mat-label>
-            <textarea matInput rows="5" formControlName="content"></textarea>
-          </mat-form-field>
-      
-          <button mat-raised-button color="primary" style="float: right; margin-left: 8px;"
-           (click)="updatePost()">Update Post</button>
-      
-          <button mat-raised-button color="warn" style="float: right;" (click)="isEditingPost = false;">Cancel</button>
-        </form>
-      </div>
+      <mat-card-content>
+        <div class="create-post-heading">
+          <h2>Update Your Post</h2>
+        </div>
+        <div class="form-container">
+          <form [formGroup]="postForm">
+            <div class="form-group">
+              <label for="name"> Post Name</label>
+              <input id="name" formControlName="name" class="custom-input" type="text" placeholder="Enter Name" />
+            </div>
 
+            <div class="form-group">
+              <label for="img">Image</label>
+              <input id="img" formControlName="img" class="custom-input" type="file" (change)="onFileSelected($event)" />
+            </div>
+            <div class="form-group">
+              <label for="content">Content</label>
+              <textarea id="content" rows="5" formControlName="content" class="custom-input" placeholder="Enter Content"></textarea>
+            </div>
 
-      
-    </mat-card-content>
-  </mat-card>
+            <button mat-raised-button color="primary" style="float: right; margin-left: 8px;  margin-top:2%; font-family: Georgia, 'Times New Roman', Times, serif; border:1px solid darkblue; font-weight: 600;"
+              (click)="updatePost()">Update Post</button>
+
+            <button mat-raised-button color="warn" style="float: right;  margin-top:2%; border:1px solid darkblue;font-family: Georgia, 'Times New Roman', Times, serif;font-weight: 600  ;" (click)="isEditingPost = false;">Cancel</button>
+
+          </form>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
 
     <!-- <mat-card class="comment-card">
       <mat-card-content>
@@ -83,7 +89,7 @@
     <!-- <div class="comment-wrapper"> -->
       <mat-card *ngIf="sessionUser" class="comment-card fancy-comment">
         <mat-card-content>
-          <h3 class="section-title"><!--💬--><mat-icon>chat</mat-icon> Publish Your Comment</h3>
+          <h3 class="section-title" style="font-size:1.5rem;margin-top:-3%"><!--💬--><mat-icon>chat</mat-icon> Publish Your Comment</h3>
           <form [formGroup]="commentForm" class="comment-form">
             <div class="form-group">
               <!-- <label for="content">Comment</label> -->
@@ -102,20 +108,23 @@
           </form>
         </mat-card-content>
       </mat-card>
-
       <div class="comment-display-section">
-        <h4>Comments</h4>
-        <mat-card class="comment-card" *ngFor="let comment of comments">
-          <mat-card-content class="comm">{{ comment.content }}</mat-card-content>
-          
-          <mat-card-header>
+        <h4 style="color:black">Comments</h4>
+        <mat-card class="comment-card" *ngFor="let comment of comments" style="padding: 8px; margin-bottom: 10px;">
+
+          <mat-card-content class="comm" style="padding: 5px 0; font-size: 17px; margin-left:7%">
+            {{ comment.content }}
+          </mat-card-content>
+
+          <mat-card-header style="min-height: 50px; margin-top: -10px;">
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title class="username">{{ comment.user.name }}</mat-card-title>
-            <mat-card-subtitle class="date">{{ comment.createdAt | date:'medium' }}</mat-card-subtitle>
+            <mat-card-title class="username" style="font-size: 16px; ">{{ comment.user.name }}</mat-card-title>
+            <mat-card-subtitle class="date" style="font-size: 15px;">{{ comment.createdAt | date:'medium' }}</mat-card-subtitle>
           </mat-card-header>
 
         </mat-card>
       </div>
+
 
 
 

@@ -1,32 +1,75 @@
-<mat-card class="center-card">
+<!-- <mat-card class="center-card">
   <mat-card-content>
     <div>
       <form [formGroup]="postForm">
-        
+
           <input formControlName="img"  type="file" (change)="onFileSelected($event)" />
-        
+
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" />
         </mat-form-field>
-
-        <!-- <mat-form-field appearance="fill">
-          <mat-label>Img</mat-label>
-          <input matInput formControlName="img"  type="file" (change)="onFileSelected($event)" />
-        </mat-form-field> -->
-
-        <!-- <mat-form-field appearance="fill">
-          <mat-label>Img</mat-label>
-          <input matInput formControlName="img"  type="file" (change)="onFileSelected($event)" />
-        </mat-form-field> -->
-        
-
         <mat-form-field appearance="fill">
           <mat-label>Content</mat-label>
           <textarea matInput rows="5" formControlName="content"></textarea>
         </mat-form-field>
 
+          <button mat-raised-button color="primary " style= " float : right;"
+  [disabled]="!postForm.valid"(click)="createPost()">Create New Post</button>
+
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card> -->
+
+
+<div class="create-post-heading">
+  <h2>Create Your Post</h2>
+</div>
+<mat-card class="center-card">
+  <mat-card-content>
+
+    <div class="form-container">
+      <form [formGroup]="postForm">
+
+        <div class="form-group">
+          <label for="name"> Post Name</label>
+          <input id="name" formControlName="name" class="custom-input" type="text" placeholder="Enter Name" />
+        </div>
+
+        <div class="form-group">
+          <label for="img"> Image</label>
+          <input id="img" formControlName="img" class="custom-input" type="file" (change)="onFileSelected($event)" />
+        </div>
+
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea id="content" rows="5" formControlName="content" class="custom-input" placeholder="Enter Content"></textarea>
+        </div>
+
+        <button mat-raised-button class="create-post-button" [disabled]="!postForm.valid" (click)="createPost()">
+          Create New Post
+        </button>
+
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+
+
         <!-- <mat-form-field appearance="fill">
+          <mat-label>Img</mat-label>
+          <input matInput formControlName="img"  type="file" (change)="onFileSelected($event)" />
+        </mat-form-field> -->
+
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Img</mat-label>
+          <input matInput formControlName="img"  type="file" (change)="onFileSelected($event)" />
+        </mat-form-field> -->
+
+           <!-- <mat-form-field appearance="fill">
           <mat-label>Posted By</mat-label>
           <input matInput formControlName="user" />
         </mat-form-field>  -->
@@ -44,13 +87,5 @@
               placeholder="New tag..."
               [matChipInputFor]="chipGrid"
               (matChipInputTokenEnd)="add($event)"/>
-            </mat-chip-grid> 
+            </mat-chip-grid>
         </mat-form-field> -->
-
-          <button mat-raised-button color="primary " style= " float : right;"
-  [disabled]="!postForm.valid"(click)="createPost()">Create New Post</button>
-
-      </form>
-    </div>
-  </mat-card-content>
-</mat-card>

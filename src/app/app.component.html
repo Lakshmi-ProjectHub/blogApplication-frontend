@@ -1,29 +1,29 @@
 <mat-toolbar>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>public</mat-icon>
+    <mat-icon >public</mat-icon>
   </button>
   <span>BlogSphere</span>
   <span class="example-spacer"></span>
-  <button *ngIf="sessionUser" mat-raised-button color="primary" routerLink="/create-post" style="margin-left: 5px;">Create New Post<mat-icon>add_circle</mat-icon></button>
-  <button mat-raised-button color="primary" routerLink="/view-all" style="margin-left: 5px;">View All Posts<mat-icon>article</mat-icon></button>
+  <button *ngIf="sessionUser" mat-raised-button color="primary" routerLink="/create-post" style="margin-left: 5px; border:1px solid darkblue">Create New Post<mat-icon>add_circle</mat-icon></button>
+  <button mat-raised-button color="primary" routerLink="/view-all" style="margin-left: 5px; border:1px solid darkblue">View All Posts<mat-icon>article</mat-icon></button>
   <!-- <button mat-raised-button color="primary" [routerLink]="['/view-user-post', sessionUser._id]">
     View User Post
   </button> -->
-  <button 
+  <button
   *ngIf="sessionUser?.id"
-  mat-raised-button 
-  color="primary" 
-  [routerLink]="['/view-user-post', sessionUser.id]" style="margin-left: 5px;">My Posts<mat-icon>person</mat-icon></button>
-  <button mat-raised-button color="primary" routerLink="/search-by-name" class="search-button" style="margin-left: 5px;">Search
+  mat-raised-button
+  color="primary"
+  [routerLink]="['/view-user-post', sessionUser.id]" style="margin-left: 5px; border:1px solid darkblue">My Posts<mat-icon>person</mat-icon></button>
+  <button mat-raised-button color="primary" routerLink="/search-by-name" class="search-button" style="margin-left: 5px; border:1px solid darkblue">Search
     <mat-icon>search</mat-icon>
   </button>
 
   <div *ngIf="sessionUser">
-    <button mat-raised-button color="accent" class="auth-btn" (click)="userService.logout()" style="margin-left: 5px;">Logout<mat-icon>logout</mat-icon></button>
-  </div> 
-  
+    <button mat-raised-button color="accent" class="auth-btn" (click)="userService.logout()" style="margin-left: 5px; border:1px solid darkblue">Logout<mat-icon>logout</mat-icon></button>
+  </div>
 
-  <button *ngIf="!sessionUser" mat-raised-button color="accent" class="auth-btn" routerLink="/auth" style="margin-left: 5px;">Register / Login<mat-icon>login</mat-icon></button>
+
+  <button *ngIf="!sessionUser" mat-raised-button color="accent" class="auth-btn" routerLink="/auth" style="margin-left: 5px;border:1px solid darkblue">Register / Login<mat-icon>login</mat-icon></button>
 </mat-toolbar>
 <!-- <div *ngIf="sessionUser">
   <p>Welcome, {{ sessionUser.name }} , {{sessionUser.id}} ({{ sessionUser.email }})</p>
