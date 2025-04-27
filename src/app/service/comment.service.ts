@@ -15,18 +15,32 @@ export class CommentService {
 
   createComment(postId: number, content: string,userId: number): Observable<any> {
     // Initialize userId to null in case sessionUser is not available
-   
+
     const params = {
       postId: postId.toString(),
-      postedBy: userId.toString()  
+      postedBy: userId.toString()
     };
-  
+
     // Send the data to the backend using HTTP POST
     return this.http.post<any>(BASIC_URL + `api/comments/create`, content, { params });
   }
-  
+
   getAllCommentsByPost(postId:number):Observable<any>{
-    return this.http.get(BASIC_URL + `api/comments/${postId}`);
+    return this.http.get<any>(BASIC_URL + `api/comments/${postId}`);
 
   }
+
+
+  // new code
+  // Inside CommentService
+
+deleteComment(commentId: number): Observable<any> {
+  return this.http.delete<any>( BASIC_URL + `api/comments/delete/${commentId}`);
+}
+
+updateComment(commentId: number, newContent: string): Observable<any> {
+  const updatedComment = { content: newContent };
+  return this.http.put<any>(`${BASIC_URL}api/comments/update/${commentId}`, updatedComment);
+}
+
 }

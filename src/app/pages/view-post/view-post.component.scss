@@ -265,3 +265,56 @@ margin-top:-5%;
     border-color: #3f51b5;
     box-shadow: 0 0 5px rgba(63, 81, 181, 0.5);
   }
+  /* Textarea styling */
+.comment-card textarea {
+  width: 80%; /* Ensures the textarea takes up the full width */
+  padding: 12px;
+  font-size: 10%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  resize: vertical; /* Allows resizing vertically */
+  background-color: #f9f9f9; /* Subtle background */
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow effect */
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Focus effect for textarea */
+.comment-card textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Blue focus border */
+  background-color: #e8f4fd; /* Slight blue background on focus */
+}
+
+/* When editing, make the textarea look like a modern form input */
+.comment-card textarea {
+  min-height: 100px; /* Set a minimum height */
+  font-size: 1.2rem; /* Slightly larger font size */
+}/* Styling the mat-card-actions to align the buttons in a row */
+.downbuttons {
+  display: flex;
+  gap: -10px; /* Adds space between buttons */
+  margin-top: -3%;
+  margin-left: 5%;
+  justify-content: left;
+
+}
+
+/* Styling for the individual icons */
+.delete-icon {
+  color: red; /* Red color for delete icon */
+  font-size: 20px; /* Adjust icon size if needed */
+}
+
+.edit-icon {
+  color: blue; /* Blue color for edit icon */
+  font-size: 20px; /* Adjust icon size if needed */
+}
+
+.save-icon {
+  color: green; /* Green color for save icon */
+  font-size: 20px; /* Adjust icon size if needed */
+}
+
+

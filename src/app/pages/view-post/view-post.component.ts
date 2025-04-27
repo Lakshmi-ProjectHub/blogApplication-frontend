@@ -44,10 +44,10 @@ export class ViewPostComponent{
   isEditingPost = false;
   postForm!: FormGroup;
   selectedPost: any; // To store the post being edited
+            postOwnerId: any; // To store the post owner's ID
 
   // lakshmi
-  commentForm!:FormGroup;
-  comments:any;
+
 
   sessionUser: any;
   selectedImageFile: any;
@@ -76,6 +76,8 @@ export class ViewPostComponent{
     console.log(this.postId);
     this.viewPostById();
     this.getPostById();
+    console.log(this.comments);  // Check the structure of the comments array
+
 
     this.postForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -101,9 +103,12 @@ export class ViewPostComponent{
       });
 
    }
+
   getPostById(){
     this.PostService.getPostById(this.postId).subscribe(res => {
       this.postData = res;
+      this.postOwnerId = res.user.id;  // owner of post cna deleted the comment of any
+
       console.log(res);
       this.getCommentsByPost(); //get comments for post
     }, (error:any) =>{
@@ -209,7 +214,8 @@ export class ViewPostComponent{
       //     alert('Invalid post ID');
       //   }
       // }
-
+      commentForm!:FormGroup;
+      comments:any =[];
       deletePost() {
         if (confirm('Are you sure you want to delete this post?')) {
           console.log('Post ID:', this.postData.id);
@@ -247,14 +253,95 @@ export class ViewPostComponent{
         this.matSnackBar.open("Something went wrong!!!" ,"ok")
       })
     }
-    getCommentsByPost(){
-      this.commentService.getAllCommentsByPost(this.postId).subscribe(res=>{
-        this.comments=res;
-      },error=>{
-        this.matSnackBar.open("Something went wrong!!!" ,"ok")
-      })
+    // getCommentsByPost(){
+    //   this.commentService.getAllCommentsByPost(this.postId).subscribe(res=>{
+    //     this.comments=res;
+    //   },error=>{
+    //     this.matSnackBar.open("Something went wrong!!!" ,"ok")
+    //   })
+    // }
+
+  // Fetch comments from the backend
+  // getCommentsByPost() {
+  //   this.commentService.getAllCommentsByPost(this.postId).subscribe({
+  //     next: (comments) => {
+  //       console.log(comments);  // Check if comments are objects
+
+  //       this.comments = comments;
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching comments:', err);
+  //     }
+  //   });
+  // }
+  getCommentsByPost() {
+    this.commentService.getAllCommentsByPost(this.postId).subscribe({
+      next: (comments) => {
+        console.log('Fetched comments:', comments); // Check the content here
+
+        this.comments = comments.map((comment: { content: any; }) => ({
+          ...comment,
+          newContent: comment.content // Add `newContent` property for ngModel binding
+        }));
+      },
+      error: (err) => {
+        console.error('Error fetching comments:', err);
+      }
+    });
+  }
+
+  // Delete comment
+  deleteComment(commentId: number) {
+    this.commentService.deleteComment(commentId).subscribe({
+      next: (response) => {
+
+        // Check if the response contains the success message
+        if (response.message === 'Comment deleted successfully') {
+          // Remove the comment from the local array to reflect the deletion in the UI
+          this.comments = this.comments.filter((comment: { id: number; }) => comment.id !== commentId);
+          this.matSnackBar.open('Comment deleted successfully!', 'OK', { duration: 2000 });
+        } else {
+          this.matSnackBar.open('Failed to delete comment', 'OK', { duration: 2000 });
+        }
+      },
+      error: (err) => {
+        console.error('Error deleting comment:', err);
+        this.matSnackBar.open('Failed to delete comment', 'OK', { duration: 2000 });
+      }
+    });
+  }
+
+
+  editComment(comment: any) {
+    if (comment && typeof comment === 'object') {
+      comment.isEditing = true;
+      comment.newContent = comment.content; // Storing the original content for editing
+      this.comments = [...this.comments];
+    } else {
+      console.error('Invalid comment object');
     }
+  }
 
+ // Update comment after editing
+ updateComment(comment: any) {
+  if (comment.newContent !== comment.content) {
+    const updatedContent = comment.newContent.trim();  // Remove any extra spaces/newlines
+
+    this.commentService.updateComment(comment.id,updatedContent).subscribe({
+      next: () => {
+        // Update the content and exit the editing mode
+        comment.content =updatedContent;
+        comment.isEditing = false;
+        this.matSnackBar.open('Comment updated successfully!', 'OK', { duration: 2000 });
+      },
+      error: (err) => {
+        console.error('Error updating comment:', err);
+        this.matSnackBar.open('Failed to update comment', 'OK', { duration: 2000 });
+      }
+    });
+  } else {
+    // If content hasn't changed, just exit the editing mode
+    comment.isEditing = false;
+  }
 }
-
-
+  }
