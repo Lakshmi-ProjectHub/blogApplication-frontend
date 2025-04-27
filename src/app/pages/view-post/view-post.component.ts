@@ -39,6 +39,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ViewPostComponent{
 
+  showCommentForm: boolean = false;
   postData: any;
   postId: number = 0;
   isEditingPost = false;

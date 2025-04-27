@@ -29,7 +29,7 @@
 }
 
 .example-header-image {
-  background-image: url('https://cdn-icons-png.flaticon.com/512/8847/8847419.png');
+  background-image: url('https://img.icons8.com/?size=100&id=2yC9SZKcXDdX&format=png&color=000000');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;  background-size: cover;
@@ -111,12 +111,23 @@ h4{
     }
   }
 
+  mat-card-actions button {
+    text-transform: none; /* No uppercase */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid darkblue;
+    font-weight: bold;
+    margin-left: 5px;
+  
+  }
+
   .publish-btn {
     align-self: flex-end;
     padding: 10px 20px;
     font-size: 1rem;
-    background-color: #007bff;
-    color: white;
+    // background-color: #007bff;
+    // color: white;
     font-family: Georgia, 'Times New Roman', Times, serif;
 
     border-radius: 20px;
@@ -124,7 +135,7 @@ h4{
     transition: transform 0.3s ease, background-color 0.3s ease;
 
     &:hover {
-      background-color: #0056b3;
+      // background-color: #0056b3;
       transform: translateY(-2px);
     }
 

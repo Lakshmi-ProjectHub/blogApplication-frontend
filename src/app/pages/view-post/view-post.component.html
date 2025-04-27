@@ -10,19 +10,21 @@
             {{ postData.content }}
         </mat-card-content>
         <br>
-        <!--<mat-chip *ngFor="let tag of postData.tags">{{ tag }}
-
-        </mat-chip> -->
+        
+        
         <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="likePost()">{{postData.likeCount}}
+            <button mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue" (click)="likePost()">{{postData.likeCount}}
                 <mat-icon>favorite</mat-icon></button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">{{postData.viewCount}}
+            <button mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue">{{postData.viewCount}}
                 <mat-icon>remove_red_eye</mat-icon></button>
+            <button  *ngIf="postData?.user?.id === sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue" (click)="showCommentForm = !showCommentForm">
+                  <mat-icon style="margin: auto;">chat</mat-icon>
+                </button>
 
-          <button *ngIf="postData?.user?.id === sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px;" (click)="editPost()">
-              <mat-icon>edit</mat-icon></button>
-          <button *ngIf="postData?.user?.id === sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px;" (click)="deletePost()">
-              <mat-icon>delete</mat-icon></button>
+          <button *ngIf="postData?.user?.id === sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue" (click)="editPost()">
+              <mat-icon style="margin: auto;">edit</mat-icon></button>
+          <button *ngIf="postData?.user?.id === sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue" (click)="deletePost()">
+              <mat-icon style="margin: auto;">delete</mat-icon></button>
 
       </mat-card-actions>
     </mat-card>
@@ -60,60 +62,42 @@
       </mat-card-content>
     </mat-card>
 
+<mat-card *ngIf="sessionUser && showCommentForm" class="comment-card fancy-comment">
+  <mat-card-content>
+    <h3 class="section-title" style="font-size:1.5rem;margin-top:-3%">
+      <mat-icon>chat</mat-icon> Publish Your Comment
+    </h3>
+    <form [formGroup]="commentForm" class="comment-form">
+      <div class="form-group">
+        <textarea id="content" formControlName="content" placeholder="Write something cool..." style="width: 97%;"></textarea>
+      </div>
 
-    <!-- <mat-card class="comment-card">
-      <mat-card-content>
-        <h4>Publish Your Comment</h4>
-        <div>
-          <form [formGroup]="commentForm" >
-            <mat-form-field appearance ="fill">
-              <mat-label>Content</mat-label>
-              <textarea matInput formControlName="content"></textarea>
-            </mat-form-field>
-
-            <mat-form-field appearance ="fill">
-              <mat-label>Posted By</mat-label>
-              <textarea matInput formControlName="postedBy"></textarea>
-            </mat-form-field>
-
-            <button mat-raised-button (click)="publishComment()" color="primary" style="float:right;" [disabled]="!commentForm.valid">Publish Comment</button>
-
+      <button mat-raised-button (click)="publishComment()" color="primary" class="publish-btn">
+        Publish Comment <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
 
 
-          </form>
 
-        </div>
-      </mat-card-content>
-    </mat-card> -->
 
-      <mat-card *ngIf="sessionUser" class="comment-card fancy-comment">
-        <mat-card-content>
-          <h3 class="section-title" style="font-size:1.5rem;margin-top:-3%"><!--💬--><mat-icon>chat</mat-icon> Publish Your Comment</h3>
-          <form [formGroup]="commentForm" class="comment-form">
-            <div class="form-group">
-              <!-- <label for="content">Comment</label> -->
-              <textarea id="content" formControlName="content" placeholder="Write something cool..."></textarea>
-            </div>
-
-            <button mat-raised-button (click)="publishComment()" color="primary" class="publish-btn" >
-              Publish Comment<mat-icon>send</mat-icon>
-            </button>
-          </form>
-        </mat-card-content>
-      </mat-card>
       <div class="comment-display-section">
         <h4 style="color:#000000">Comments</h4>
-
         <mat-card class="comment-card display" *ngFor="let comment of comments" >
-
           <mat-card-content class="comm" >
-            <!-- If the comment is in editing mode, show a textarea -->
+
             <div *ngIf="!comment.isEditing">{{ comment.content }}</div>
             <div *ngIf="comment.isEditing">
-              <textarea [(ngModel)]="comment.newContent" rows="3"></textarea>
-              <button mat-button color="accent" *ngIf="comment.isEditing" (click)="updateComment(comment)" style="color:darkblue;background-color: white;border:1px solid darkblue;font-family:Georgia, 'Times New Roman', Times, serif">
-               Update Comment <!-- Save icon -->
+              <textarea [(ngModel)]="comment.newContent" rows="3" style="width: 97%;"></textarea>
+              <div style="text-align: right; margin-top: 10px;">
+              <button mat-raised-button color="accent" *ngIf="comment.isEditing" (click)="comment.isEditing=false" style="color:darkblue;background-color: white;border:1px solid darkblue;font-family:Georgia, 'Times New Roman', Times, serif">
+                Cancel
+               </button>
+               <button mat-raised-button color="accent" *ngIf="comment.isEditing" (click)="updateComment(comment)" style="margin-left: 5px; color:darkblue;background-color: white;border:1px solid darkblue;font-family:Georgia, 'Times New Roman', Times, serif">
+               Update Comment
               </button>
+            </div>
             </div>
           </mat-card-content>
 
