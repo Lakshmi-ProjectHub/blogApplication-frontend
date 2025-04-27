@@ -44,8 +44,8 @@ export class ViewPostComponent{
   postId: number = 0;
   isEditingPost = false;
   postForm!: FormGroup;
-  selectedPost: any; // To store the post being edited
-            postOwnerId: any; // To store the post owner's ID
+  selectedPost: any;
+  postOwnerId: any;
 
   // lakshmi
 
@@ -77,14 +77,13 @@ export class ViewPostComponent{
     console.log(this.postId);
     this.viewPostById();
     this.getPostById();
-    console.log(this.comments);  // Check the structure of the comments array
+    console.log(this.comments);
 
 
     this.postForm = new FormGroup({
       name: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required),
       img: new FormControl('', Validators.required)
-      // Add other form controls as needed
     });
 
 
@@ -96,7 +95,7 @@ export class ViewPostComponent{
 
   this.http.get('http://localhost:8080/api/user/session', { withCredentials: true }).subscribe({
         next: (data: any) => {
-          this.sessionUser = data;  // Assuming the backend returns user data
+          this.sessionUser = data;
         },
         error: (err: any) => {
           console.error('Not logged in or session expired', err);
@@ -108,10 +107,9 @@ export class ViewPostComponent{
   getPostById(){
     this.PostService.getPostById(this.postId).subscribe(res => {
       this.postData = res;
-      this.postOwnerId = res.user.id;  // owner of post cna deleted the comment of any
-
+      this.postOwnerId = res.user.id;
       console.log(res);
-      this.getCommentsByPost(); //get comments for post
+      this.getCommentsByPost();
     }, (error:any) =>{
       this.matSnackBar.open('Error while fetching post details', 'OK');
     })
@@ -126,7 +124,7 @@ export class ViewPostComponent{
     }, (error:any) =>{
       this.matSnackBar.open('Error while fetching post details', 'OK');
     })
-    location.reload(); // Reload the page to reflect changes
+    location.reload();
   }
   }
     likePost(){
@@ -148,7 +146,6 @@ export class ViewPostComponent{
 
 
     editPost() {
-      // Enable editing mode
       this.isEditingPost = true;
       this.selectedPost = this.postData;
 
@@ -167,21 +164,14 @@ export class ViewPostComponent{
         const formData = new FormData();
         formData.append("name", formValues.name);
         formData.append("content", formValues.content);
-        formData.append("userId", formValues.user); // user ID from form
-        formData.append("img", this.selectedImageFile); // the selected file
+        formData.append("userId", formValues.user);
+        formData.append("img", this.selectedImageFile);
 
-        // If you have tags or other JSON-like fields, you can stringify them:
-        // formData.append("tags", JSON.stringify(this.tags));
-
-
-      // Get the updated post data from the form
-
-        // Send the updated post to the backend
+        
         this.http.put(`http://localhost:8080/api/posts/${this.postData.id}`, formData).subscribe({
           next: (updatedPost) => {
             console.log('Post updated successfully', updatedPost);
-            this.postData = updatedPost; // Update the postData with the updated post
-            // Add any logic here to handle success, such as redirecting or refreshing the post list
+            this.postData = updatedPost;
             this.matSnackBar.open('Post Updated sucessfully', 'OK');
 
           },
@@ -189,32 +179,13 @@ export class ViewPostComponent{
             console.error('Error updating post:', err);
           },
           complete: () => {
-            this.isEditingPost = false; // Exit the edit mode
-            //location.reload(); // Reload the page to reflect changes
+            this.isEditingPost = false;
+            //location.reload();
           }
         });
       }
 
 
-
-
-      // deletePost() {
-      //   console.log('Post ID:', this.postData.id);
-      //   if (this.postData && this.postData.id) {
-      //     this.http.delete(`http://localhost:8080/api/posts/${this.postData.id}`).subscribe({
-      //       next: () => {
-      //         console.log('Post deleted successfully');
-      //         this.router.navigateByUrl("/");
-      //       },
-      //       error: (err) => {
-      //         console.error('Error deleting post:', err);
-      //       }
-      //     });
-      //   } else {
-      //     console.error('Invalid post ID');
-      //     alert('Invalid post ID');
-      //   }
-      // }
       commentForm!:FormGroup;
       comments:any =[];
       deletePost() {
@@ -241,7 +212,6 @@ export class ViewPostComponent{
 
     // lakshmi
     publishComment(){
-      //const postedBy = this.commentForm.get('postedBy')?.value;
       const content = this.commentForm.get('content')?.value;
 
       this.commentService.createComment(this.postId,content,this.sessionUser.id).subscribe(res=>{
@@ -254,35 +224,15 @@ export class ViewPostComponent{
         this.matSnackBar.open("Something went wrong!!!" ,"ok")
       })
     }
-    // getCommentsByPost(){
-    //   this.commentService.getAllCommentsByPost(this.postId).subscribe(res=>{
-    //     this.comments=res;
-    //   },error=>{
-    //     this.matSnackBar.open("Something went wrong!!!" ,"ok")
-    //   })
-    // }
 
-  // Fetch comments from the backend
-  // getCommentsByPost() {
-  //   this.commentService.getAllCommentsByPost(this.postId).subscribe({
-  //     next: (comments) => {
-  //       console.log(comments);  // Check if comments are objects
-
-  //       this.comments = comments;
-  //     },
-  //     error: (err) => {
-  //       console.error('Error fetching comments:', err);
-  //     }
-  //   });
-  // }
   getCommentsByPost() {
     this.commentService.getAllCommentsByPost(this.postId).subscribe({
       next: (comments) => {
-        console.log('Fetched comments:', comments); // Check the content here
+        console.log('Fetched comments:', comments);
 
         this.comments = comments.map((comment: { content: any; }) => ({
           ...comment,
-          newContent: comment.content // Add `newContent` property for ngModel binding
+          newContent: comment.content
         }));
       },
       error: (err) => {
@@ -291,14 +241,11 @@ export class ViewPostComponent{
     });
   }
 
-  // Delete comment
   deleteComment(commentId: number) {
     this.commentService.deleteComment(commentId).subscribe({
       next: (response) => {
 
-        // Check if the response contains the success message
         if (response.message === 'Comment deleted successfully') {
-          // Remove the comment from the local array to reflect the deletion in the UI
           this.comments = this.comments.filter((comment: { id: number; }) => comment.id !== commentId);
           this.matSnackBar.open('Comment deleted successfully!', 'OK', { duration: 2000 });
         } else {
@@ -316,21 +263,19 @@ export class ViewPostComponent{
   editComment(comment: any) {
     if (comment && typeof comment === 'object') {
       comment.isEditing = true;
-      comment.newContent = comment.content; // Storing the original content for editing
+      comment.newContent = comment.content;
       this.comments = [...this.comments];
     } else {
       console.error('Invalid comment object');
     }
   }
 
- // Update comment after editing
  updateComment(comment: any) {
   if (comment.newContent !== comment.content) {
-    const updatedContent = comment.newContent.trim();  // Remove any extra spaces/newlines
+    const updatedContent = comment.newContent.trim();
 
     this.commentService.updateComment(comment.id,updatedContent).subscribe({
       next: () => {
-        // Update the content and exit the editing mode
         comment.content =updatedContent;
         comment.isEditing = false;
         this.matSnackBar.open('Comment updated successfully!', 'OK', { duration: 2000 });
@@ -341,7 +286,6 @@ export class ViewPostComponent{
       }
     });
   } else {
-    // If content hasn't changed, just exit the editing mode
     comment.isEditing = false;
   }
 }

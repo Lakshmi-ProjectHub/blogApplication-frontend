@@ -93,33 +93,15 @@ export class CreatePostComponent implements OnInit {
       this.tags.splice(index, 1);
     }
   }
-  // createPost() {
-  // const data = this.postForm.value;
-  // data.user = { id: data.user};
-  // data.tags = this.tags;
-
-
-  // this.postService.createNewPost(data).subscribe({
-  //   next: res => {
-  //     this.snackBar.open("Post Created Successfully!", "Close");
-  //     this.router.navigateByUrl("/");
-  //   },
-  //   error: err => {
-  //     console.error("Error",err);
-  //     this.snackBar.open("Something Went Wrong!", "Ok");
-  //   }
-  // });
+  
   createPost() {
     const formValues = this.postForm.value;
 
     const formData = new FormData();
     formData.append("name", formValues.name);
     formData.append("content", formValues.content);
-    formData.append("userId", formValues.user); // user ID from form
-    formData.append("img", this.selectedImageFile); // the selected file
-
-    // If you have tags or other JSON-like fields, you can stringify them:
-    // formData.append("tags", JSON.stringify(this.tags));
+    formData.append("userId", formValues.user);
+    formData.append("img", this.selectedImageFile);
 
     this.postService.createNewPost(formData).subscribe({
       next: res => {

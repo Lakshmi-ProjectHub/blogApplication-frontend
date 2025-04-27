@@ -18,7 +18,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 
 
-// Your components
 import { CreatePostComponent } from './pages/create-post/create-post.component';
 import { ViewAllComponent } from './pages/view-all/view-all.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';

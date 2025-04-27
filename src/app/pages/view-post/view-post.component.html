@@ -55,10 +55,8 @@
               (click)="updatePost()">Update Post</button>
 
             <button mat-raised-button color="warn" style="float: right;  margin-top:2%; border:1px solid darkblue;font-family: Georgia, 'Times New Roman', Times, serif;font-weight: 600  ;" (click)="isEditingPost = false;">Cancel</button>
-
           </form>
         </div>
-
       </mat-card-content>
     </mat-card>
 
@@ -71,7 +69,6 @@
       <div class="form-group">
         <textarea id="content" formControlName="content" placeholder="Write something cool..." style="width: 97%;"></textarea>
       </div>
-
       <button mat-raised-button (click)="publishComment()" color="primary" class="publish-btn">
         Publish Comment <mat-icon>send</mat-icon>
       </button>
@@ -86,7 +83,6 @@
         <h4 style="color:#000000">Comments</h4>
         <mat-card class="comment-card display" *ngFor="let comment of comments" >
           <mat-card-content class="comm" >
-
             <div *ngIf="!comment.isEditing">{{ comment.content }}</div>
             <div *ngIf="comment.isEditing">
               <textarea [(ngModel)]="comment.newContent" rows="3" style="width: 97%;"></textarea>
@@ -108,33 +104,19 @@
           </mat-card-header>
 
           <mat-card-actions class="downbuttons" *ngIf="sessionUser">
-            <!-- Delete comment button with red icon -->
             <button mat-button color="warn"
             *ngIf="sessionUser?.id === comment.user.id || sessionUser?.id === postOwnerId"
             (click)="deleteComment(comment.id)">
-              <mat-icon class="delete-icon">delete</mat-icon> <!-- Delete icon -->
+              <mat-icon class="delete-icon">delete</mat-icon>
             </button>
 
-            <!-- Edit comment button with blue icon -->
             <button mat-button color="primary"
             *ngIf="sessionUser?.id === comment.user.id"
             (click)="editComment(comment)">
-              <mat-icon class="edit-icon">edit</mat-icon> <!-- Edit icon -->
+              <mat-icon class="edit-icon">edit</mat-icon>
             </button>
-
-            <!-- Save button with green icon (only appears when editing) -->
-
           </mat-card-actions>
-
-
         </mat-card>
       </div>
-
-
-
-
-
-
-
   </div>
 

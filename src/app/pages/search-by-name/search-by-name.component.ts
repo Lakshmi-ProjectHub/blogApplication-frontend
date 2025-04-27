@@ -48,7 +48,7 @@ export class SearchByNameComponent {
       if (this.result.length === 0) {
         this.snackBar.open("No posts available for this search keyword!", "Ok", { duration: 3000 });
       }
-      this.name=""; //reseting search filed for another entry
+      this.name="";
     }, error => {
       this.snackBar.open("Enter something to search!!!!", "Ok");
     });

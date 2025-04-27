@@ -1,13 +1,3 @@
-// .center-card {
-//   max-width: 600px; /* Adjust the maximum width as needed */
-//   margin: auto;
-//   margin-top: 10px; /* Adjust the top margin as needed */
-//   padding: 30px;
-// }
-
-// mat-form-field {
-//   width: 100%;
-// }
 
 .create-post-heading{
 
@@ -31,13 +21,13 @@ margin-left: 25%;
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: 40px; /* gap between form groups */
+  gap: 40px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 13px; /* gap between label and input */
+  gap: 13px;
 }
 
 label {
@@ -66,7 +56,7 @@ label {
   background-color: darkblue;
   color: white;
   font-size: 13px;
-  height: 6vh; /* vertical height for button */
+  height: 6vh;
   width: 150px;
   border-radius: 20px;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -75,5 +65,5 @@ label {
 }
 
 .create-post-button:hover {
-  background-color: #00008b; /* even darker on hover */
+  background-color: #00008b;
 }

@@ -4,7 +4,7 @@
     padding-bottom: 30px;
 }
 mat-card{
-  background: linear-gradient(to right, #f5a5d1, #b88ef5, #a5e0f6, #ffffff); /* Lighter Gradient Background */
+  background: linear-gradient(to right, #f5a5d1, #b88ef5, #a5e0f6, #ffffff);
 
     padding: 10px;
     border-radius: none;
@@ -19,13 +19,13 @@ mat-card-footer{
     margin-left: 20px;
 }
 .poster-img {
-  width: 450px;  /* increased from 300px */
-    height: 230px; /* increased from 200px */
+  width: 450px;
+    height: 230px;
     object-fit: cover;
     margin-top: 15px;
 }
 .container{
-  background: linear-gradient(to right, #f5a5d1, #b88ef5, #a5e0f6, #ffffff); /* Lighter Gradient Background */
+  background: linear-gradient(to right, #f5a5d1, #b88ef5, #a5e0f6, #ffffff);
 
 }
 mat-card-title {
@@ -48,7 +48,7 @@ mat-card-content{
 }
 
 mat-card-actions button {
-  text-transform: none; /* No uppercase */
+  text-transform: none;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 14px;
   font-weight: 400;

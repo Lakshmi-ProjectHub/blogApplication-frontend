@@ -23,22 +23,6 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void{
-
-  //   this.authService.loggedIn$.subscribe((isLoggedIn) => {
-  //     this.isLoggedIn = isLoggedIn;
-  //     if (isLoggedIn) {
-  //       this.user = this.authService.getUser();
-  //     } else {
-  //       this.user = null;
-  //     }
-  //   });
-  // }
-
-  // logout(): void {
-  //   this.authService.logout();
-  //   this.router.navigate(['/auth']);
-   
-    
       this.http.get('http://localhost:8080/api/user/session', { withCredentials: true })
         .subscribe({
           next: (data: any) => {

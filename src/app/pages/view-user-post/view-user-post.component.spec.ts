@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ViewUserPostComponent } from './view-user-post.component';
 
-import { ViewAllComponent } from './view-all.component';
 
-describe('ViewAllComponent', () => {
-  let component: ViewAllComponent;
-  let fixture: ComponentFixture<ViewAllComponent>;
+describe('ViewUserPostComponent', () => {
+  let component: ViewUserPostComponent;
+  let fixture: ComponentFixture<ViewUserPostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ViewAllComponent]
+      declarations: [ViewUserPostComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewAllComponent);
+    fixture = TestBed.createComponent(ViewUserPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,3 +21,4 @@ describe('ViewAllComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

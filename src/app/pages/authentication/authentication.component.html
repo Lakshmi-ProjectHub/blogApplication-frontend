@@ -1,43 +1,4 @@
-<!-- <div class="main-wrapper">
-<div class="container" [ngClass]="{'active': activeForm === 'signup'}">
 
-  <div class="form-container sign-up" *ngIf="activeForm === 'signup'">
-    <form>
-      <h1>Create Account</h1>
-      <input type="text" placeholder="Name" [(ngModel)]="name" name="name">
-      <input type="email" placeholder="Email" [(ngModel)]="email" name="email">
-      <input type="password" placeholder="Password"  [(ngModel)]="password" name="password">
-      <button type="button"  (click)="onSignUp()">Sign Up</button>
-    </form>
-  </div>
-
-  <div class="form-container sign-in" *ngIf="activeForm === 'signin'">
-    <form>
-      <h1>Welcome</h1>
-      <input type="email" placeholder="Email" [(ngModel)]="email" name="loginEmail">
-      <input type="password" placeholder="Password"  [(ngModel)]="password" name="loginPassword">
-      <button type="button" (click)="onSignIn()">Sign In</button>
-    </form>
-  </div>
-
-  <div class="toggle-container">
-    <div class="toggle">
-      <div class="toggle-panel toggle-left">
-        <h3>If you already have an account.</h3>
-        <p>Then just sign-in</p>
-        <button class="hidden" (click)="toggleForm('signin')">Sign In</button>
-      </div>
-      <div class="toggle-panel toggle-right">
-        <h2>Don't have an account?</h2>
-        <p>Please Signup!</p>
-        <button class="hidden" (click)="toggleForm('signup')">Sign Up</button>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-</div> -->
 <div class="main-wrapper">
   <div class="container" [ngClass]="{'active': activeForm === 'signup'}">
 

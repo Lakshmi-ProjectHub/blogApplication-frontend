@@ -1,14 +1,10 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon >public</mat-icon>
-  </button>
-  <span>BlogSphere</span>
+  <img src="assets/BlogSphere.png?v=1" style="width: 55px; height: 55px;">
+  <span Style="margin-left: 5px;">BlogSphere</span>
   <span class="example-spacer"></span>
   <button *ngIf="sessionUser" mat-raised-button color="primary" routerLink="/create-post" style="margin-left: 5px; border:1px solid darkblue">Create New Post<mat-icon>add_circle</mat-icon></button>
   <button mat-raised-button color="primary" routerLink="/view-all" style="margin-left: 5px; border:1px solid darkblue">View All Posts<mat-icon>article</mat-icon></button>
-  <!-- <button mat-raised-button color="primary" [routerLink]="['/view-user-post', sessionUser._id]">
-    View User Post
-  </button> -->
+ 
   <button
   *ngIf="sessionUser?.id"
   mat-raised-button
@@ -25,8 +21,5 @@
 
   <button *ngIf="!sessionUser" mat-raised-button color="accent" class="auth-btn" routerLink="/auth" style="margin-left: 5px;border:1px solid darkblue">Register / Login<mat-icon>login</mat-icon></button>
 </mat-toolbar>
-<!-- <div *ngIf="sessionUser">
-  <p>Welcome, {{ sessionUser.name }} , {{sessionUser.id}} ({{ sessionUser.email }})</p>
-</div> -->
 <router-outlet> </router-outlet>
 

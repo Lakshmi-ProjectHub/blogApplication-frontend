@@ -15,18 +15,6 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-//   checkSession() {
-//     this.http.get('http://localhost:8080/api/user/session').subscribe({
-//     next: (userData) => {
-//       this.user = userData;
-//       this.loggedInSubject.next(true);  // Set logged-in state to true
-//     },
-//     error: () => {
-//       this.loggedInSubject.next(false);  // Set logged-in state to false if session doesn't exist
-//     }
-//   });
-// }
-
 logout() {
   this.http.post('http://localhost:8080/api/user/logout', {}, { withCredentials: true }).subscribe({
     next: () => {
@@ -35,7 +23,7 @@ logout() {
       console.log("Logged out and session cleared");
       
       this.router.navigate(['/auth']).then(() => {
-        location.reload(); // This now reloads /auth instead of the old route
+        location.reload();
       });
     },
     error: (err) => {

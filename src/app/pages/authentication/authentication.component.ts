@@ -20,7 +20,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrls: ['./authentication.component.scss']
 })
 export class AuthenticationComponent {
-  activeForm: string = 'signin'; // Default to 'signin'
+  activeForm: string = 'signin';
 
 
   name: string = '';
@@ -43,56 +43,7 @@ export class AuthenticationComponent {
     toggleForm(form: string) {
     this.activeForm = form === 'signin' ? 'signin' : 'signup';
   }
-  // onSignUp() {
-  //   const user = {
-  //     name: this.name,
-  //     email: this.email,
-  //     password: this.password
-  //   };
-
-  //   this.userService.registerUser(user).subscribe(
-  //     (response: any) => {
-  //       if (response.status === 201) {
-  //         alert('User registered successfully!');
-  //       } else {
-  //         alert('Registration failed: ' + response.message);
-  //       }
-  //     },
-  //     (error: any) => {
-  //       console.error('Error during registration', error);
-  //       alert('Registration failed due to an error');
-  //     }
-  //   );
-  // }
-
-
-
-  // onSignIn() {
-  //   const user = {
-  //     email: this.email,
-  //     password: this.password
-  //   };
-
-  //   this.userService.loginUser(user).subscribe(
-  //     (response: any) => {
-  //       console.log('Login response:', response); // Log response for debugging
-  //       if (response.status === 200) {
-  //         // Successful login
-  //         alert('Login successful!');
-  //         this.router.navigateByUrl("/view-all"); // Redirect to view-all page
-  //       } else {
-  //         // Invalid credentials
-  //         alert('Invalid credentials.');
-  //       }
-  //     },
-  //     (error: any) => {
-  //       // This part is triggered if the backend sends an error (e.g., 401 Unauthorized)
-  //       console.error('Error during login', error);
-  //       alert('Invalid credentials.');
-  //     }
-  //   );
-  // }
-
+  
   onSignUp() {
     if (!this.name || !this.email || !this.password) {
       this.showMessage("Please fill in all fields correctly.");
@@ -109,7 +60,7 @@ export class AuthenticationComponent {
       (response: any) => {
         if (response.status === 201) {
           this.showMessage('User registered successfully!');
-          this.resetForm(); // Reset form fields after successful login
+          this.resetForm();
 
         } else {
           this.showMessage('Registration failed: ' + response.message);
@@ -135,15 +86,13 @@ export class AuthenticationComponent {
 
     this.userService.loginUser(user).subscribe(
       (response: any) => {
-        console.log('Login response:', response); // Log response for debugging
+        console.log('Login response:', response);
         if (response.body && response.body.status === 200) {
           this.showMessage('Login successful!');
-          //this.router.navigateByUrl("/view-all"); // Redirect to view-all page
           this.resetForm();
           this.router.navigate(['/view-all']).then(() => {
-            location.reload(); // This now reloads /auth instead of the old route
-          });// Reset form fields after successful login
-
+            location.reload(); 
+          });
         } else {
           alert('Invalid credentials.');
         }
@@ -158,16 +107,12 @@ export class AuthenticationComponent {
     this.name = '';
     this.email = '';
     this.password = '';
-    this.activeForm = 'signin'; // Optionally, you can redirect to signin after signup
+    this.activeForm = 'signin';
   }
 
-
-
- // Method to validate email using regex
  isEmailValid(): boolean {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  // Ensure that the return value is always a boolean
   return this.email ? !emailRegex.test(this.email) : false;
 }
 

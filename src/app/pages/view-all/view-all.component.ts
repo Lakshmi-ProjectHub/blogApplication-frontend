@@ -52,7 +52,7 @@ ngOnInit() {
   }
     showMessage() {
       this.MatsnackBar.open("To like visit post", "Close", {
-        duration: 3000, // 3 seconds
+        duration: 3000, 
       });
     }
     

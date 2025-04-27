@@ -39,20 +39,12 @@ export class ViewUserPostComponent {
 
   allPosts: any;
   userId: number = 0;
-  sessionUser: any; // To store session user data
+  sessionUser: any;
 
   constructor(private postService: PostService,private snackBar: MatSnackBar,private http: HttpClient,private activatedRoute: ActivatedRoute) { this.userId = Number(this.activatedRoute.snapshot.paramMap.get('userId'));}
 
 ngOnInit() {
   
-  // this.http.get('http://localhost:8080/api/user/session', { withCredentials: true }).subscribe({
-  //   next: (data: any) => {
-  //     this.sessionUser = data;  // Assuming the backend returns user data
-  //   },
-  //   error: (err: any) => {
-  //     console.error('Not logged in or session expired', err);
-  //   }
-  // });
     this.getAllPost();
     console.log("Extracted userId from URL:", this.userId);
   }
