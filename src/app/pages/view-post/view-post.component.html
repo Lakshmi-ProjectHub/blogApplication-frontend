@@ -10,14 +10,14 @@
             {{ postData.content }}
         </mat-card-content>
         <br>
-        
-        
+
+
         <mat-card-actions>
             <button mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue" (click)="likePost()">{{postData.likeCount}}
                 <mat-icon>favorite</mat-icon></button>
             <button mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue">{{postData.viewCount}}
                 <mat-icon>remove_red_eye</mat-icon></button>
-            <button  *ngIf="postData?.user?.id === sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue" (click)="showCommentForm = !showCommentForm">
+            <button  *ngIf="sessionUser?.id" mat-raised-button color="primary" style="margin-left: 5px; border:1px solid darkblue" (click)="showCommentForm = !showCommentForm">
                   <mat-icon style="margin: auto;">chat</mat-icon>
                 </button>
 

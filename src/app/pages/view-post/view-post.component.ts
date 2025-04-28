@@ -130,7 +130,7 @@ export class ViewPostComponent{
     likePost(){
        const AlreadyLiked = localStorage.getItem('liked-'+this.postId);
        if(AlreadyLiked){
-         this.matSnackBar.open('You already liked this post', 'OK');
+         this.matSnackBar.open('You already liked this post', 'OK',{ duration: 2000 });
          return;
        }
 
@@ -167,12 +167,12 @@ export class ViewPostComponent{
         formData.append("userId", formValues.user);
         formData.append("img", this.selectedImageFile);
 
-        
+
         this.http.put(`http://localhost:8080/api/posts/${this.postData.id}`, formData).subscribe({
           next: (updatedPost) => {
             console.log('Post updated successfully', updatedPost);
             this.postData = updatedPost;
-            this.matSnackBar.open('Post Updated sucessfully', 'OK');
+            this.matSnackBar.open('Post Updated sucessfully', 'OK',{ duration: 2000 });
 
           },
           error: (err) => {
@@ -215,7 +215,7 @@ export class ViewPostComponent{
       const content = this.commentForm.get('content')?.value;
 
       this.commentService.createComment(this.postId,content,this.sessionUser.id).subscribe(res=>{
-        this.matSnackBar.open(" Comment Published Sucessfully!!!" ,"ok");
+        this.matSnackBar.open(" Comment Published Sucessfully!!!" ,"ok",{ duration: 2000 });
         this.getCommentsByPost();
         this.commentForm.reset();
 
